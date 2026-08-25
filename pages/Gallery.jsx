@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { Link } from 'react-router-dom'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -1082,7 +1083,7 @@ function Gallery() {
           LIGHTBOX
       ================================================= */}
 
-      {selectedItem && (
+      {selectedItem && createPortal(
 
         <div
           className="fixed inset-0 z-[70] flex items-center justify-center bg-[#0a0807]/[.96] p-5 md:p-12"
@@ -1166,7 +1167,8 @@ function Gallery() {
 
           </div>
 
-        </div>
+        </div>,
+        document.body
 
       )}
 
