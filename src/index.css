@@ -1,0 +1,178 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Manrope:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+	--font-serif: 'Cormorant Garamond', Georgia, serif;
+	--font-sans: 'Manrope', sans-serif;
+}
+
+@keyframes rise-in {
+	from { opacity: 0; transform: translateY(18px); }
+	to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes page-reveal {
+	from { opacity: 0; transform: translateY(14px); }
+	to { opacity: 1; transform: translateY(0); }
+}
+
+.page-reveal {
+	position: relative;
+	animation: page-reveal 700ms cubic-bezier(.2,.7,.2,1) both;
+}
+
+.page-reveal::before {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 10;
+	width: 100%;
+	height: 1px;
+	content: '';
+	background: linear-gradient(90deg, transparent, #d5b966, transparent);
+	transform-origin: left;
+	animation: page-sweep 900ms cubic-bezier(.2,.7,.2,1) both;
+	pointer-events: none;
+}
+
+@keyframes whatsapp-float {
+	0%, 100% { transform: translateY(0); }
+	50% { transform: translateY(-5px); }
+}
+
+@keyframes whatsapp-ring {
+	0% { opacity: 0.55; transform: scale(0.92); }
+	70%, 100% { opacity: 0; transform: scale(1.38); }
+}
+
+.whatsapp-float {
+	animation: whatsapp-float 2.8s ease-in-out infinite;
+}
+
+.whatsapp-float::before {
+	position: absolute;
+	inset: 0;
+	border: 1px solid #25d366;
+	border-radius: 9999px;
+	content: '';
+	animation: whatsapp-ring 2.8s ease-out infinite;
+	pointer-events: none;
+}
+
+@keyframes page-sweep {
+	from { opacity: 0; transform: scaleX(0); }
+	35% { opacity: 1; }
+	to { opacity: 0; transform: scaleX(1); }
+}
+
+:root {
+	font-family: 'Manrope', sans-serif;
+	color: #f0dda3;
+	background: #100f0e;
+	font-synthesis: none;
+}
+
+body { margin: 0; background: #100f0e; }
+
+.luxury-nav {
+	background: rgba(16, 15, 14, 0.76);
+	border-color: rgba(201, 162, 74, 0.12);
+	transition: background-color 300ms ease, border-color 300ms ease;
+}
+
+.luxury-nav.scrolled {
+	background: rgba(16, 15, 14, 0.94);
+	border-color: rgba(201, 162, 74, 0.28);
+}
+
+.nav-link::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 1px;
+	background: #c9a24a;
+	transform: scaleX(0);
+	transform-origin: left;
+	transition: transform 300ms ease;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after { transform: scaleX(1); }
+
+.menu-toggle {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.6rem;
+}
+
+.menu-icon {
+	display: inline-flex;
+	width: 1rem;
+	height: 0.8rem;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.menu-icon span {
+	display: block;
+	width: 100%;
+	height: 1px;
+	background: currentColor;
+	transform-origin: center;
+	transition: transform 300ms ease, opacity 200ms ease;
+}
+
+.menu-icon.is-open span:first-child { transform: translateY(0.35rem) rotate(45deg); }
+.menu-icon.is-open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.menu-icon.is-open span:last-child { transform: translateY(-0.35rem) rotate(-45deg); }
+
+.menu-panel {
+	visibility: hidden;
+	opacity: 0;
+	transform: translateY(-0.6rem) scale(0.96);
+	transform-origin: top right;
+	transition: opacity 260ms ease, transform 260ms cubic-bezier(.2,.7,.2,1), visibility 260ms ease;
+}
+
+.menu-panel.is-open {
+	visibility: visible;
+	opacity: 1;
+	transform: translateY(0) scale(1);
+}
+
+.hero-shell { background: #100f0e; }
+
+.location-label {
+	display: block;
+	max-width: 100%;
+	color: #e1bd61;
+	font-size: clamp(0.78rem, 1.15vw, 1rem);
+	font-weight: 700;
+	line-height: 1.45;
+	letter-spacing: clamp(0.12em, 0.28vw, 0.24em);
+	text-wrap: balance;
+}
+
+.hero-copy { animation: hero-up 850ms cubic-bezier(.2,.7,.2,1) 150ms both; }
+.hero-eyebrow { animation: hero-up 650ms ease-out 300ms both; }
+.hero-heading { animation: hero-up 850ms cubic-bezier(.2,.7,.2,1) 420ms both; }
+.hero-description { animation: hero-up 700ms ease-out 600ms both; }
+.hero-actions { animation: hero-up 700ms ease-out 760ms both; }
+.hero-contact { animation: hero-up 700ms ease-out 900ms both; }
+.hero-image-card { animation: hero-up 950ms cubic-bezier(.2,.7,.2,1) 320ms both; }
+
+.hero-image-card img { transition: transform 600ms cubic-bezier(.2,.7,.2,1), filter 600ms ease; }
+.hero-image-card:hover img { transform: scale(1.03); filter: brightness(1.07); }
+
+@keyframes hero-up {
+	from { opacity: 0; transform: translateY(22px); }
+	to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+	.page-reveal::before { display: none; }
+	.whatsapp-float::before { display: none; }
+}
